@@ -22,7 +22,23 @@ class BoardsController < ApplicationController
     @board = Board.find(params[:id])
   end
 
-  
+  def update
+    @board = Board.find(params[:id])
+ @board.name = params[:name]
+ @board.responsible = params[:responsible]
+ @board.title = params[:title]
+ @board.body = params[:body]
+ @board.deadline = params[:deadline]
+
+ if @board.update(board_params)
+   flash[:notice] = "success editing"
+   redirect_to boards_path
+ else
+   render "edit"
+ end
+  end
+
+
 
   def destroy
     @board = Board.find(params[:id])
