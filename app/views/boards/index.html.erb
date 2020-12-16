@@ -1,0 +1,45 @@
+<div class="d-flex align-items-center">
+  <h1>課題一覧</h1>
+  <div class="ml-auto boards__linkBox">
+    <%= link_to "課題新規作成", new_board_path, class:"btn btn-outline-dark" %>
+  </div>
+
+  <div class="ml-auto boards__linkBox">
+    <%= link_to "Category一覧", categories_path, class:"btn btn-outline-dark" %>
+  </div>
+</div>
+
+<%= will_paginate @boards %>
+
+<table id="fav-table", class="table table-hover boards__table table-striped table-dark" , style= "table-layout:fixed;width:100%;">
+  <thead class="thead-dark">
+    <tr>
+      <th>serial_ID</th>
+      <th>課題</th>
+      <th>部品名</th>
+      <th>担当</th>
+      <th>期限</th>
+      <th>詳細</th>
+      <th>作成日時</th>
+      <th>更新日時</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @boards.each_with_index do |board, i| %>
+      <tr style="word-wrap:break-word;">
+        <td><%= i+1 %></td>
+        <td><%= simple_format(board.title) %></td>
+        <td><%= board.name %></td>
+        <td><%= board.responsible %></td>
+        <td><%= board.deadline %></td>
+        <td><%= link_to '詳細', board, class: 'btn btn-outline-dark' %></td>
+        <td><%= board.created_at.to_s(:datetime_jp) %></td>
+        <td><%= board.updated_at.to_s(:datetime_jp) %></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+
